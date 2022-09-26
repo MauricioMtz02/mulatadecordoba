@@ -9,6 +9,8 @@ const Layout = ({children, page}) => {
             <Head>
                 <title>La Mulata de Córdoba - {page}</title>
                 <meta charSet="UTF-8"/>
+                <meta property="og:locale" content="es_MX"/>
+                <meta property="og:site_name" content="La mulata de córdoba"/>
             </Head>
             
             <header>
