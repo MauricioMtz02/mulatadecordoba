@@ -1,0 +1,144 @@
+$primary:#F38630 !default;
+$info: #A7DBD8;
+
+@import "~bootstrap/scss/bootstrap";
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+*{
+  font-family: 'Poppins', sans-serif;
+  transition: all ease .3s;
+}
+
+ul{
+  margin: 0;
+  padding: 0;
+}
+
+li{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-principal{
+  transition: all ease .4s;
+}
+
+.nav-principal.fixed{
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 8;
+}
+
+.nav-principal .enlaces{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  transition: all ease .3s;
+  clip-path: circle(70.7% at 145% -70%);
+  z-index: 9;
+}
+
+.nav-principal .enlaces.show{
+  clip-path: circle(70.7% at 50% 50%);
+}
+
+@media (min-width: 992px){
+  .nav-principal .enlaces{
+      width: auto;
+      background-color: unset;
+      position: static;
+      clip-path: unset;
+  }
+
+  .nav-principal .enlaces.show{
+      clip-path: unset;
+  }
+}
+
+
+.menu-activador {
+	width: 30px;
+	height: 20px;
+}
+.menu-activador #lanzador {
+	position: absolute;
+	left: -9999px;
+}
+.menu-activador label {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 100%;
+	cursor: pointer;
+}
+.menu-activador .menu-activador-linea {
+	height: 2px;
+	opacity: 1;
+	transform: translateY(0) rotate(0);
+	transition: all ease 0.3s;
+}
+.menu-activador #lanzador:checked ~ label .menu-activador-linea:nth-child(1) {
+	transform: translateY(9px) rotate(45deg);
+}
+.menu-activador #lanzador:checked ~ label .menu-activador-linea:nth-child(2) {
+	opacity: 0;
+}
+.menu-activador #lanzador:checked ~ label .menu-activador-linea:nth-child(3) {
+	transform: translateY(-9px) rotate(-45deg);
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.outline-none, .outline-none:hover, .outline-none:focus{
+    outline: none;
+    border: none;
+}
+
+.bg-none{
+    background-color: unset;
+}
+
+@media (min-width: 992px){
+    .bg-lg-none{
+        background-color: unset!important;
+    }
+}
+
+.z-index-1{
+    z-index: 1;
+}
+
+.z-index-2{
+  z-index: 1;
+}
+
+.z-index-10{
+    z-index: 10;
+}
+
+.cortina-negra{
+    display: block;
+    width: 1000px;
+    max-width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,1) 17%, rgba(255,255,255,0) 66%);
+}
+
+.bg-image{
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
