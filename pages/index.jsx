@@ -102,7 +102,7 @@ HomePage.getLayout = function getLayout(page) {
     )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     // Obtener al menos 4 registros de articulos recientes
     const configArticulos = {
         limit: 4

@@ -120,6 +120,7 @@ export async function getStaticProps({params: {url}}) {
         // Passed to the page component as props
         props: {
             articulo: data[0]
-        }
+        },
+        revalidate: 60
     }
 }
