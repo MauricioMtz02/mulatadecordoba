@@ -1,21 +1,9 @@
-import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from 'next/link'
-import { obtenerFecha } from "../helpers"
+import { cutContent, obtenerFecha } from "../helpers"
 
 const ArticuloCard = ({articulo}) => {
-    const [desc, setDesc] = useState('')
-    const {categoria, title, description, content, img, url, created_at} = articulo
-
-    useEffect(() => {
-        cutContent()
-    })
-
-    const cutContent = () => {
-        if(content){
-            setDesc(description.length > 50 ? `${description.substring(0, 50)}...` : '')
-        }
-    }
+    const {categoria, title, description, img, url, created_at} = articulo
 
     return (
         <Link
@@ -36,7 +24,7 @@ const ArticuloCard = ({articulo}) => {
                     <div className="text-center text-dark text-lg-start mx-auto col-12 col-lg-6">
                         <p className="mb-0 fs-7 text-primary">{categoria}</p>
                         <h5 title={title}>{title}</h5>
-                        <p className="fw-light mb-1">{desc}</p>
+                        <p className="fw-light mb-1">{cutContent(description)}</p>
                     </div>
                 </div>
                 

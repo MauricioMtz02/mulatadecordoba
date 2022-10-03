@@ -50,3 +50,33 @@ export const createMensajeAdapter = mensaje => {
         status
     }
 }
+
+export const createUserAdapter = user => {
+    const { id, username, email, phone_number, jwt, admin, created_at, last_update, status } = user
+
+    return{
+        id,
+        username,
+        email,
+        phone_number,
+        jwt,
+        admin,
+        created_at,
+        last_update,
+        status
+    }
+}
+
+export const createRedSocialAdapter = redSocial => {
+    const { id, name, icon, href, created_at, last_update, status } = redSocial
+
+    return{
+        id,
+        name,
+        icon,
+        href,
+        created_at,
+        last_update,
+        status
+    }
+}

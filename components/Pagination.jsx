@@ -16,7 +16,7 @@ const Pagination = ({meta}) => {
         return pages
     }
 
-    return (
+    return pageSize > 1 ? (
         <nav>
             <ul className="pagination justify-content-center flex-wrap">
                 {pageActual > 1 && (
@@ -56,7 +56,7 @@ const Pagination = ({meta}) => {
                 )}
             </ul>
         </nav>
-    )
+    ) : ''
 }
 
 export default Pagination

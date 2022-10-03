@@ -1,5 +1,6 @@
 import { useEffect, useState, createContext } from 'react'
 import { getArticulos } from '../services/articulos'
+import { getRedesSociales } from '../services/redSocial'
 
 const staticLimit = 10
 
@@ -11,34 +12,23 @@ const BlogProvider = ({children}) => {
     const [meta, setMeta] = useState({})
     const [limit, setLimit] = useState(staticLimit)
     const [search, setSearch] = useState('')
+    const [redesSociales, setRedesSociales] = useState([])
 
-    const redesSociales = [
-        {
-            icon: 'facebook.png',
-            href: 'https://www.facebook.com/LaMulataDeCordoba',
-            name: 'Facebook'
-        },
-        {
-            icon: 'instagram.png',
-            href: '#',
-            name: 'Instagram'
-        },
-        {
-            icon: 'twitter.png',
-            href: '#',
-            name: 'Twitter'
-        },
-        {
-            icon: 'youtube.png',
-            href: '#',
-            name: 'Youtube'
-        },
-        {
-            icon: 'tik-tok.png',
-            href: '#',
-            name: 'Tik Tok'
+    useEffect(() => {
+        const consultarApi = async () => {
+            const {data} = await getRedesSociales({
+                where: [
+                    {
+                        column: 'status',
+                        value: 1
+                    }
+                ]
+            })
+            setRedesSociales(data)
         }
-    ]
+
+        consultarApi()
+    }, [])
 
     useEffect(() => {
         const obtenerArticulos = async () => {
@@ -48,7 +38,7 @@ const BlogProvider = ({children}) => {
             }
             
             if(categoriaActual){
-                config.where = [ { column: 'categoriaId', value: categoriaActual } ]
+                config.where = [ { column: 'categoriaId', value: categoriaActual }, { column: 'status', value: 1 } ]
             }
 
             if(search){
@@ -57,7 +47,11 @@ const BlogProvider = ({children}) => {
                     {
                         column: 'search',
                         value: search
-                    } 
+                    },
+                    {
+                        column: 'status',
+                        value: 1
+                    }
                 ]
             }
     

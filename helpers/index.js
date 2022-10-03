@@ -38,6 +38,30 @@ export const dateFormat = datetime => {
         mesCorto: fechaUTC.toLocaleDateString('es-MX', {month: 'short'}),
         dia: fechaUTC.toLocaleDateString('es-MX', {day: '2-digit'}),
         full: fechaUTC.toLocaleDateString('es-MX', opciones),
-        time: fechaObj.getTime()
+        time: fechaUTC.toLocaleDateString('es-MX', {hourCycle: 'h24'}),
     }
+}
+
+export const cutContent = str => {
+    return str.length > 50 ? `${str.substring(0, 50)}...` : str
+}
+
+export const setLocalStorage = (item, name) => {
+    localStorage.setItem(name, JSON.stringify(item))
+}
+
+export const getLocalStorage = (name, config) => {
+     let item = JSON.parse(localStorage.getItem(name))
+
+     if(!item){
+         if(config?.set){
+            if(config?.data){
+                setLocalStorage(config.data, name)
+                item = config.data
+            }
+         }
+         
+     }
+
+     return item
 }

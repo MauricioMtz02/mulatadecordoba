@@ -8,6 +8,7 @@ const Layout = ({children, page}) => {
         <BlogProvider>
             <Head>
                 <title>La Mulata de Córdoba - {page}</title>
+                <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
                 <meta charSet="UTF-8"/>
                 <meta property="og:locale" content="es_MX"/>
                 <meta property="og:site_name" content="La mulata de córdoba"/>

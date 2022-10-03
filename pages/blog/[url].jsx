@@ -1,13 +1,13 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { obtenerFecha } from '../../helpers'
 import { getArticulos } from "../../services/articulos"
+import Head from 'next/head'
 import Layout from "../../layouts/Layout"
 import Portadas from '../../components/pages/Portadas'
+import Meta from '../../components/pages/blog/articulo/Meta'
+import Articulo from '../../components/Articulo'
 
 export default function ArticuloPage({articulo}) {
-    const {id, categoria, title, description, content, keywords, img, categoriaId, created_at, last_update} = articulo
+    const {id, title, categoriaId} = articulo
     const [articulos, setArticulos] = useState([])
 
     useEffect(() => {
@@ -28,58 +28,18 @@ export default function ArticuloPage({articulo}) {
         consultarArticulos()
     }, [id, categoriaId])
 
-    const printContent = () => {
-        return {__html: content}
-    }
-
     return (
         <>
             <Head>
                 <title>{title} - La Mulata de Córdoba</title>
-                <meta
-                    name='description'
-                    content={title}
+                <Meta
+                    articulo={articulo}
                 />
-                <meta name="robots" content="index" />
-                <meta name="keywords" content={keywords} />
-                <meta property="og:image" content={`${process.env.BACKEND_IMAGES}/${img ? img : 'articuloNone.jpg'}`}/>
-                <meta property="og:image:url" content={`${process.env.BACKEND_IMAGES}/${img ? img : 'articuloNone.jpg'}`}/>
-                <meta property="og:image:secure_url" content={`${process.env.BACKEND_IMAGES}/${img ? img : 'articuloNone.jpg'}`}/>
-                <meta property="article:published_time" content={created_at}/>
-                <meta property="article:modified_time" content={last_update} />
-
-                <meta itemprop="name" content={title}/>
-                <meta itemprop="headline" content={title}/>
-                <meta itemprop="description" content={description}/>
-                <meta itemprop="image" content={`${process.env.BACKEND_IMAGES}/${img ? img : 'articuloNone.jpg'}`}/>
-                <meta itemprop="datePublished" content={created_at}/>
-                <meta itemprop="dateModified" content={last_update} />
-                <meta itemprop="author" content="La Mulata de Córdoba"/>
             </Head>
 
-            <article className='col-xl-10'>
-                <div
-                    title={title}
-                >
-                    <h5 className='text-primary'>{categoria}</h5>
-                    <h1>{title}</h1>
-                    <p className='fs-7 fw-light text-secondary'>Publicado el {obtenerFecha(created_at)}</p>
-                </div>
-
-                <section>
-                    <Image
-                        src={`${process.env.BACKEND_IMAGES}/${img ? img : 'articuloNone.jpg'}`}
-                        alt={`Articulo ${title}`}
-                        width={1000}
-                        height={600}
-                        className='rounded-3'
-                    />
-                </section>
-
-                <section
-                    className='mt-4' 
-                    dangerouslySetInnerHTML={printContent()}></section>
-            </article>
+            <Articulo
+                articulo={articulo}
+            />
 
             {articulos.length && (
                 <section className='mt-5'>
@@ -106,7 +66,14 @@ ArticuloPage.getLayout = function getLayout(page) {
 // Generates `/posts/1` and `/posts/2`
 export async function getStaticPaths() {
 
-    const articulos = await getArticulos()
+    const articulos = await getArticulos({
+        where: [
+            {
+                column: 'status',
+                value: 1
+            }
+        ]
+    })
 
     const paths = articulos.data.map( articulo => ({
         params: { url: articulo.url }
@@ -125,6 +92,10 @@ export async function getStaticProps({params: {url}}) {
             {
                 column: 'url',
                 value: url
+            },
+            {
+                column: 'status',
+                value: 1
             }
         ]
     })

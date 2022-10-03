@@ -48,7 +48,14 @@ BlogPage.getLayout = function getLayout(page) {
 
 export async function getStaticProps() {    
     // Obtener categorias sin articulos
-    const {data} = await getCategorias()
+    const {data} = await getCategorias({
+        where: [
+            {
+                column: 'status',
+                value: 1
+            }
+        ]
+    })
 
     return {
         props: {

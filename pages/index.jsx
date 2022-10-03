@@ -105,7 +105,13 @@ HomePage.getLayout = function getLayout(page) {
 export async function getServerSideProps() {
     // Obtener al menos 4 registros de articulos recientes
     const configArticulos = {
-        limit: 4
+        limit: 4,
+        where: [
+            {
+                column: 'status',
+                value: 1
+            }
+        ]
     }
     
     // Obtener al menos 3 categorias junto con articulos
@@ -115,6 +121,10 @@ export async function getServerSideProps() {
             {
                 column: 'articulos_limit',
                 value: 4
+            },
+            {
+                column: 'status',
+                value: 1
             }
         ]
     }
