@@ -81,7 +81,7 @@ export async function getStaticPaths() {
 
     return {
         paths,
-        fallback: true
+        fallback: 'blocking', // can also be true or 'blocking'
     }
 }
   
@@ -99,6 +99,15 @@ export async function getStaticProps({params: {url}}) {
             }
         ]
     })
+
+    if(!data){
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false
+            }
+        }
+    }
 
     return {
         // Passed to the page component as props
